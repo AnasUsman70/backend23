@@ -5,7 +5,6 @@ import bcrypt from 'bcryptjs'
 import UserModel from './models/UserSchema.js';
 import 'dotenv/config'
 
-
 const app = express();
 const PORT = process.env.PORT;
 const DBURI = process.env.MONGODB_URi
@@ -123,16 +122,17 @@ app.post('/api/SignUp', async (req, res) => {
     const userObj = {
         firstName, lastName, email, password: hashPassword
     }
-
+    
     const response = await UserModel.create(userObj)
-
+    
     res.json({
         message: "User create successfully",
         status: true
     })
     
-
-
+})
+    
+    
     // For login api
 
     app.post('api/login', async(req, res) =>{
@@ -156,9 +156,22 @@ app.post('/api/SignUp', async (req, res) => {
             return;
         }
 
-        // const comparePassword =                                                     
+        const comparePassword = await bcrypt.compare(password, emailExist.password);
 
-    })
+        if (!comparePassword) {
+          res.json({
+            message: "Invalid email & password",
+            status: false,
+          });
+      
+          return;
+        }
+      
+        res.json({
+          message: "login successfully",
+          status: true,
+        });                                             
 
-    res.send('SignUp api')
+
+    // res.send('SignUp api')
 })
