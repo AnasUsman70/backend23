@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import postModel from './models/postSchema.js';
 import bcrypt from 'bcryptjs'
 import UserModel from './models/UserSchema.js';
+import 'dotenv/config'
+
 
 const app = express();
 const PORT = process.env.PORT;
