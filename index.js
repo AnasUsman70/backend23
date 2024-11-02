@@ -131,7 +131,18 @@ app.post('/api/SignUp', async (req, res) => {
     })
     
 })
-    
+
+
+app.get('/getSign', async (req, res) => {
+    const getData = await UserModel.find({})
+
+    res.json({
+        message:'Data get successful',
+        data: getData,
+    })
+
+
+})
     
     // For login api
 
